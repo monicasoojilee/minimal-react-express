@@ -12,3 +12,7 @@ I do not license or own any of the code that I referenced in order to build this
 
 [Create-React-App From Scratch (Jedai Saboteur, 2018)](https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658)
 - For `webpack-cli`<= 4.0.0, use script `webpack serve` (~~`webpack-dev-server`~~).
+
+[Webpack Config for DevServer Proxy (Webpack Documentation)](https://webpack.js.org/configuration/dev-server/#devserverproxy)
+
+[Babel Config For Async/Await (StackOverflow, 2020)](https://stackoverflow.com/questions/59822748/do-i-need-to-import-core-js-stable-and-regenerator-runtime-runtime-when-using-b)

@@ -1,12 +1,6 @@
+require('dotenv').config();
 const path = require("path");
 const webpack = require("webpack");
-const dotenv = require("dotenv");
-
-// access environment variables from React;
-const env = Object.keys(dotenv.config().parsed).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
 
 module.exports = {
   entry: "./src/index.js",  // where our application starts + where to start bundling our files;
@@ -36,10 +30,15 @@ module.exports = {
     port: 3000,
     publicPath: "http://localhost:3000/dist/",    // output.publicPath !== devServer.publicPath;
     hotOnly: true,
-    stats: 'summary',                             // display webpack version, warnings count and errors count on reload;
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:5000/",
+        secure: false,
+        changeOrigin: true
+      }
+    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),   // to see any changes without constant refreshes (Hot Module Replacement);
-    new webpack.DefinePlugin(env)               // to access environment variables (process.env.[VARIABLE_NAME]);
   ]
 };

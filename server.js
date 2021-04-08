@@ -1,10 +1,11 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
+import path from 'path';
 
 const app = express();
 
-// Application Middleware (CORS, built-in body-parser);
+// Application Middleware;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,8 +16,22 @@ app.use(express.urlencoded({ extended: true }));
 //   next();
 // });
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get('/api/hello', (req, res) => {
+  res.send('Hello From Express');
 });
 
-app.listen(process.env.EXPRESS_PORT, 5000, () => console.log(`Express listening on port ${process.env.EXPRESS_PORT}!`));
+app.post('/api/world', (req, res) => {
+  res.send(req.body.post);
+});
+
+// Production/Deployment Configuration;
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, "..", "public")));
+
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+  });
+} 
+
+app.listen(process.env.EXPRESS_PORT, 5000, 
+  () => console.log(`Express listening on port ${process.env.EXPRESS_PORT}!`));
